@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import toast, { Toaster } from 'react-hot-toast';
 import axios from "axios";
 import "react-loading-skeleton/dist/skeleton.css";
+import { useSelector } from 'react-redux';
 
 const AddRecord = () => {
 
@@ -14,6 +15,14 @@ const AddRecord = () => {
   const [comments, setComments] = useState('');
   const [isProcessing, setIsProcessing] = useState(false);
   const [apiResponse, setApiResponse] = useState({});
+  const reducerData = useSelector((state) => state?.isLoginSuccess);
+  const userEmail = useSelector((state) => state?.userEmailId);
+
+  useEffect(() => {
+    if(userEmail && userEmail !== ''){
+      setEmail(userEmail);
+    }
+  }, []);
 
   const handleSubmitButtonClick = () => {
     console.log("validating details");
@@ -71,6 +80,7 @@ const AddRecord = () => {
     setComments('');
   }
 
+  if(reducerData){
   return (
     <>
       <div className="container my-3 py-3">
@@ -141,7 +151,20 @@ const AddRecord = () => {
       <hr />
       <Toaster />
     </>
-  );
+  )}
+  else{
+    return (
+      <>
+        <div className="container my-3 py-3">
+          <div className="col-12">
+            <h4 className="display-7 text-center">You're not authorized to access this application.</h4>
+            <h4 className="display-7 text-center">Please login to continue</h4>
+          </div>
+        </div>
+        <hr />
+        <Toaster />
+      </>
+    )}
 };
 
 export default AddRecord;

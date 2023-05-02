@@ -1,24 +1,26 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { Footer, Navbar } from "../components";
-import { saveLoginSuccess } from '../redux/actions';
-import { useDispatch,useSelector } from "react-redux";
+import { saveLoginSuccess, setUserEmailId } from '../redux/actions';
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
 
   const [loginId, setLoginId] = useState('');
   const [password, setPassword] = useState('');
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const reducerData = useSelector((state) => state?.isLoginSuccess);
-    // let IsLoginSuccess = reducerData?.isLoginSuccess;
-    console.log("is xyz",reducerData);
+  console.log("is xyz", reducerData);
 
   const handleSubmit = () => {
-    debugger; // eslint-disable-line no-debugger
     console.log("validate login");
-    if(loginId === 'admin@abhi.com' && password === 'admin'){
+    if (loginId === 'admin@abhi.com' && password === 'admin') {
       dispatch(saveLoginSuccess(true));
-      alert("reached here");
+      dispatch(setUserEmailId(loginId));
+      navigate("/home");
     }
   };
 
@@ -32,13 +34,13 @@ const Login = () => {
           <div className="col-md-4 col-lg-4 col-sm-8 mx-auto">
             <form>
               <div class="my-3">
-                <label for="display-4">Login Id</label>
+                <label for="display-4">Email address</label>
                 <input
                   type="email"
                   class="form-control"
                   id="floatingInput"
                   placeholder="name@example.com"
-                  value = {loginId}
+                  value={loginId}
                   onChange={(e) => setLoginId(e.target.value)}
                 />
               </div>
@@ -49,7 +51,7 @@ const Login = () => {
                   class="form-control"
                   id="floatingPassword"
                   placeholder="Password"
-                  value = {password}
+                  value={password}
                   onChange={(e) => setPassword(e.target.value)}
                 />
               </div>
