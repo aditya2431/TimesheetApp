@@ -4,15 +4,15 @@ export const INITIAL_STATE = {
     isLoginSuccess: false,
 };
 
-const memberAdminReducer = (state = INITIAL_STATE, action) => {
+const loginEventReducer = (state = INITIAL_STATE, action) => {
     switch (action.type) {
         case LOGIN_SUCESS:
             return {
                 ...state,
-                isLoginSuccess: action.result
+                isLoginSuccess: action.payload
             };
         default:
             return state;
     }
 };
-export default memberAdminReducer;
+export default loginEventReducer;
