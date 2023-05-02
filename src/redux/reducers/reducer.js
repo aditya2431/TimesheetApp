@@ -4,7 +4,7 @@ export const INITIAL_STATE = {
     isLoginSuccess: false,
 };
 
-const loginEventReducer = (state = INITIAL_STATE, action) => {
+const LoginReducer = (state = INITIAL_STATE, action) => {
     switch (action.type) {
         case LOGIN_SUCESS:
             return {
@@ -15,4 +15,4 @@ const loginEventReducer = (state = INITIAL_STATE, action) => {
             return state;
     }
 };
-export default loginEventReducer;
+export default LoginReducer;
