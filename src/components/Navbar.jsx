@@ -6,9 +6,9 @@ import { useSelector } from 'react-redux';
 
 const Navbar = () => {
     const [isAdmin, setIsAdmin] = useState(false);
-    const reducerData = useSelector((state) => state?.abhi_timesheet);
-    let IsLoginSuccess = reducerData?.isLoginSuccess;
-    console.log(IsLoginSuccess);
+    const reducerData = useSelector((state) => state?.isLoginSuccess);
+    // let IsLoginSuccess = reducerData?.isLoginSuccess;
+    console.log("is",reducerData);
 
     return (
         <nav className="navbar navbar-expand-lg navbar-light bg-light py-3 sticky-top">

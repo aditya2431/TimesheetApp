@@ -2,13 +2,16 @@ import React, {useState} from "react";
 import { Link } from "react-router-dom";
 import { Footer, Navbar } from "../components";
 import { saveLoginSuccess } from '../redux/actions';
-import { useDispatch } from "react-redux";
+import { useDispatch,useSelector } from "react-redux";
 
 const Login = () => {
 
   const [loginId, setLoginId] = useState('');
   const [password, setPassword] = useState('');
   const dispatch = useDispatch();
+  const reducerData = useSelector((state) => state?.isLoginSuccess);
+    // let IsLoginSuccess = reducerData?.isLoginSuccess;
+    console.log("is xyz",reducerData);
 
   const handleSubmit = () => {
     debugger; // eslint-disable-line no-debugger

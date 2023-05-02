@@ -7,6 +7,8 @@ export const INITIAL_STATE = {
 const LoginReducer = (state = INITIAL_STATE, action) => {
     switch (action.type) {
         case LOGIN_SUCESS:
+            console.log("action",action.payload)
+            debugger
             return {
                 ...state,
                 isLoginSuccess: action.payload
