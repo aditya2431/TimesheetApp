@@ -17,7 +17,7 @@ const Navbar = () => {
                         className="card-img"
                         src={Logo}
                         alt="Card"
-                        height={100}
+                        // height={100}
                     />
                 </NavLink>
                 <button className="navbar-toggler mx-2" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">

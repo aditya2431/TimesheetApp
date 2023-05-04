@@ -1,8 +1,8 @@
-import { LOGIN_SUCESS, USER_EMAIL_ID } from "../types";
+import { LOGIN_SUCESS, USER_OBJECT } from "../types";
 
 export const INITIAL_STATE = {
     isLoginSuccess: false,
-    userEmailId: ''
+    userObject: {}
 };
 
 const LoginReducer = (state = INITIAL_STATE, action) => {
@@ -12,10 +12,10 @@ const LoginReducer = (state = INITIAL_STATE, action) => {
                 ...state,
                 isLoginSuccess: action.payload
             };
-        case USER_EMAIL_ID:
+        case USER_OBJECT:
             return {
                 ...state,
-                userEmailId: action.payload
+                userObject: action.payload
             };
         default:
             return state;

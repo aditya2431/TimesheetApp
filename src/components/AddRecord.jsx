@@ -16,11 +16,12 @@ const AddRecord = () => {
   const [isProcessing, setIsProcessing] = useState(false);
   const [apiResponse, setApiResponse] = useState({});
   const reducerData = useSelector((state) => state?.isLoginSuccess);
-  const userEmail = useSelector((state) => state?.userEmailId);
+  const userObject = useSelector((state) => state?.userObject);
 
   useEffect(() => {
-    if(userEmail && userEmail !== ''){
-      setEmail(userEmail);
+    if(userObject && userObject !== null){
+      setEmail(userObject.emailId);
+      setUserName(userObject.userName);
     }
   }, []);
 
@@ -49,7 +50,6 @@ const AddRecord = () => {
     axios.post('http://10.81.1.250:8080/abhi_timesheet/api/timesheet', request, {credentials: 'include'})
       .then((response) => {
         if (response.status === 200) {
-          // alert("success scenario");
           setApiResponse(response.data);
           setIsProcessing(false);
           toast.dismiss();

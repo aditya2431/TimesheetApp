@@ -1,27 +1,74 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Footer, Navbar } from "../components";
-import { saveLoginSuccess, setUserEmailId } from '../redux/actions';
+import { saveLoginSuccess, setUserObject } from '../redux/actions';
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import bcrypt from 'bcryptjs';
+import toast, { Toaster } from 'react-hot-toast';
+import axios from "axios";
 
 const Login = () => {
 
   const [loginId, setLoginId] = useState('');
   const [password, setPassword] = useState('');
+  const [apiResponse, setApiResponse] = useState({});
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const salt = bcrypt.genSaltSync(10);
 
   const reducerData = useSelector((state) => state?.isLoginSuccess);
   console.log("is xyz", reducerData);
 
+  useEffect(() => {
+    validateLogin();
+}, [password]);
+
   const handleSubmit = () => {
+    console.log("validating details");
+  }
+
+  const handleFormSubmit = (event) => {
+    debugger;
     console.log("validate login");
-    if (loginId === 'admin@abhi.com' && password === 'admin') {
-      dispatch(saveLoginSuccess(true));
-      dispatch(setUserEmailId(loginId));
-      navigate("/home");
+    event.preventDefault();
+    const hashedPassword = bcrypt.hashSync(password, '$2a$10$CwTycUXWue0Thq9StjUM0u');
+    if (apiResponse) {
+      console.log(apiResponse);
+      if (apiResponse.userName === loginId && apiResponse.password === hashedPassword) {
+        dispatch(saveLoginSuccess(true));
+        dispatch(setUserObject(apiResponse));
+        navigate("/home");
+      } else {
+        toast.dismiss();
+        toast.error("Login failure")
+      }
     }
+  };
+
+  const validateLogin = () => {
+    debugger;
+    const hashedPassword = bcrypt.hashSync(password, '$2a$10$CwTycUXWue0Thq9StjUM0u');
+    console.log("hashed password is:", hashedPassword);
+    let apiEndPoint = 'http://localhost:8090/api/login/' + loginId;
+    console.log(apiEndPoint);
+    axios.get(apiEndPoint)
+      .then((response) => {
+        if (response.status === 200) {
+          // alert("success scenario");
+          setApiResponse(response.data);
+        } else {
+          toast.dismiss();
+          toast.error("Something went wrong");
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+        alert(error.message, "Please try again with CORS free browser");
+        toast.dismiss();
+        toast.error("Something went wrong");
+      });
   };
 
   return (
@@ -32,14 +79,15 @@ const Login = () => {
         <hr />
         <div class="row my-4 h-100">
           <div className="col-md-4 col-lg-4 col-sm-8 mx-auto">
-            <form>
+            <form onSubmit={handleFormSubmit}>
               <div class="my-3">
                 <label for="display-4">Email address</label>
                 <input
-                  type="email"
+                  type="text"
                   class="form-control"
                   id="floatingInput"
                   placeholder="name@example.com"
+                  required
                   value={loginId}
                   onChange={(e) => setLoginId(e.target.value)}
                 />
@@ -51,6 +99,7 @@ const Login = () => {
                   class="form-control"
                   id="floatingPassword"
                   placeholder="Password"
+                  required
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                 />
@@ -68,6 +117,7 @@ const Login = () => {
         </div>
       </div>
       <Footer />
+      <Toaster />
     </>
   );
 };

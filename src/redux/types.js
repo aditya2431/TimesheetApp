@@ -1,2 +1,2 @@
 export const LOGIN_SUCESS = 'LOGIN_SUCESS';
-export const USER_EMAIL_ID = 'USER_EMAIL_ID';
+export const USER_OBJECT = 'USER_OBJECT';
