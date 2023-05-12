@@ -1,8 +1,9 @@
-import { LOGIN_SUCESS, USER_OBJECT } from "../types";
+import { LOGIN_SUCESS, USER_OBJECT, IS_ADMIN_USER } from "../types";
 
 export const INITIAL_STATE = {
     isLoginSuccess: false,
-    userObject: {}
+    userObject: {},
+    isAdminUser: false
 };
 
 const LoginReducer = (state = INITIAL_STATE, action) => {
@@ -16,6 +17,11 @@ const LoginReducer = (state = INITIAL_STATE, action) => {
             return {
                 ...state,
                 userObject: action.payload
+            };
+        case IS_ADMIN_USER:
+            return {
+                ...state,
+                isAdminUser: action.payload
             };
         default:
             return state;

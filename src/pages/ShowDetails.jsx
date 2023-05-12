@@ -1,19 +1,21 @@
 import React, { useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
 import { Footer, Navbar } from "../components";
+import { useSelector } from 'react-redux';
+
 const ShowDetails = () => {
 
   const [apiResponse, setApiResponse] = useState([]);
   const [wbsElement, setWbsElement] = useState('');
-  const location = useLocation();
-  console.log(location);
+  const isAdmin = useSelector((state) => state?.isAdminUser);
+  console.log(isAdmin);
 
   useEffect(() => {
     fetchData()
   }, []);
 
   const fetchData = () => {
-    fetch("http://10.81.1.250:8080/abhi_timesheet/api/timesheet")
+    // fetch("http://10.81.1.250:8080/abhi_timesheet/api/timesheet")
+    fetch("http://localhost:8090/api/timesheet")
       .then(response => {
         return response.json()
       })
@@ -38,7 +40,7 @@ const ShowDetails = () => {
         <hr />
         <div className="text-center py-4">
           {apiResponse.length > 0 && (
-            <table border={1}>
+            <table className="table table-bordered">
               <tr>
                 <td><b>ID</b></td>
                 <td><b>User Name</b></td>

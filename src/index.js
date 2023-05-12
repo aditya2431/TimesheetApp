@@ -6,7 +6,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Provider } from 'react-redux';
 
 import reduxStore from "./redux/store"
-import { Home, AddNewRecord, ShowDetails, ContactPage, Login, Register, PageNotFound } from "./pages"
+import { Home, AddNewRecord, ShowDetails, ContactPage, Login, Register, PageNotFound, ViewDetails } from "./pages"
 import Logout from './pages/Logout';
 
 const store=reduxStore();
@@ -18,6 +18,7 @@ root.render(
         <Route path="/ABHI_Timesheet" element={<Login />} />
         <Route path="/addNewRecord" element={<AddNewRecord />} />
         <Route path="/showDetails" element={<ShowDetails />} />
+        <Route path="/viewDetails" element={<ViewDetails />} />
         <Route path="/contact" element={<ContactPage />} />
         <Route path="/home" element={<Home />} />
         <Route path="/register" element={<Register />} />

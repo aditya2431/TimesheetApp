@@ -5,8 +5,8 @@ import Logo from "../assets/Logo.JPG";
 import { useSelector } from 'react-redux';
 
 const Navbar = () => {
-    const [isAdmin, setIsAdmin] = useState(false);
     const reducerData = useSelector((state) => state?.isLoginSuccess);
+    const isAdmin = useSelector((state) => state?.isAdminUser);
     console.log("is", reducerData);
 
     return (
@@ -30,6 +30,9 @@ const Navbar = () => {
                         </li>}
                         {reducerData && <li className="nav-item">
                             <NavLink className="nav-link" to="/addNewRecord">Add Record</NavLink>
+                        </li>}
+                        {reducerData && <li className="nav-item">
+                            <NavLink className="nav-link" to="/viewDetails">View Timesheet</NavLink>
                         </li>}
                         {reducerData && isAdmin &&
                             <li className="nav-item">

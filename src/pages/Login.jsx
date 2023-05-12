@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Footer, Navbar } from "../components";
-import { saveLoginSuccess, setUserObject } from '../redux/actions';
+import { saveLoginSuccess, setUserObject, setAdminUser } from '../redux/actions';
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import bcrypt from 'bcryptjs';
@@ -19,41 +19,47 @@ const Login = () => {
   const salt = bcrypt.genSaltSync(10);
 
   const reducerData = useSelector((state) => state?.isLoginSuccess);
-  console.log("is xyz", reducerData);
 
   useEffect(() => {
     validateLogin();
-}, [password]);
+  }, []);
 
   const handleSubmit = () => {
     console.log("validating details");
   }
 
   const handleFormSubmit = (event) => {
-    debugger;
     console.log("validate login");
     event.preventDefault();
-    const hashedPassword = bcrypt.hashSync(password, '$2a$10$CwTycUXWue0Thq9StjUM0u');
+    if (loginId === 'admin') {
+      dispatch(setAdminUser(true));
+    }
     if (apiResponse) {
-      console.log(apiResponse);
-      if (apiResponse.userName === loginId && apiResponse.password === hashedPassword) {
-        dispatch(saveLoginSuccess(true));
-        dispatch(setUserObject(apiResponse));
-        navigate("/home");
+      debugger;
+      var newArray = apiResponse.filter(obj => obj.userName === loginId);
+      const hashedPassword = bcrypt.hashSync(password, '$2a$10$CwTycUXWue0Thq9StjUM0u');
+      console.log(loginId);
+      console.log(newArray);
+      if (newArray && newArray.length === 1) {
+        if (newArray[0].userName === loginId && newArray[0].password === hashedPassword) {
+          dispatch(saveLoginSuccess(true));
+          dispatch(setUserObject(newArray[0]));
+          navigate("/home");
+        } else {
+          toast.dismiss();
+          toast.error("Login failure")
+          return;
+        }
       } else {
         toast.dismiss();
-        toast.error("Login failure")
+        toast.error("User doesn't exist")
+        return;
       }
     }
   };
 
   const validateLogin = () => {
-    debugger;
-    const hashedPassword = bcrypt.hashSync(password, '$2a$10$CwTycUXWue0Thq9StjUM0u');
-    console.log("hashed password is:", hashedPassword);
-    let apiEndPoint = 'http://localhost:8090/api/login/' + loginId;
-    console.log(apiEndPoint);
-    axios.get(apiEndPoint)
+    axios.get('http://localhost:8090/api/login')
       .then((response) => {
         if (response.status === 200) {
           // alert("success scenario");
@@ -86,10 +92,10 @@ const Login = () => {
                   type="text"
                   class="form-control"
                   id="floatingInput"
-                  placeholder="name@example.com"
+                  placeholder="HI12345"
                   required
                   value={loginId}
-                  onChange={(e) => setLoginId(e.target.value)}
+                  onChange={(e) => setLoginId(e.target.value.toLocaleUpperCase())}
                 />
               </div>
               <div class="my-3">

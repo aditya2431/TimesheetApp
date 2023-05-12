@@ -25,13 +25,11 @@ const Register = () => {
     }
 
     const handleFormSubmit = (event) => {
-        debugger;
         let userAlreadyExist = false;
         if (apiResponse) {
             apiResponse.forEach(element => {
                 console.log(element);
                 if (element.userName === userId) {
-                    debugger;
                     event.preventDefault();
                     userAlreadyExist = true;
                     toast.dismiss();
@@ -60,7 +58,6 @@ const Register = () => {
     };
 
     const registerUser = () => {
-        debugger;
         const hashedPassword = bcrypt.hashSync(password, '$2a$10$CwTycUXWue0Thq9StjUM0u');
         console.log("hashed password is:", hashedPassword);
         const request = {
@@ -115,7 +112,7 @@ const Register = () => {
                                     placeholder="Your user id"
                                     required
                                     value={userId}
-                                    onChange={(e) => setUserId(e.target.value)}
+                                    onChange={(e) => setUserId(e.target.value.toUpperCase())}
                                 />
                             </div>
                             <div class="form my-3">

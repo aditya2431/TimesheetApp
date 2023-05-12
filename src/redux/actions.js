@@ -1,4 +1,4 @@
-import { LOGIN_SUCESS, USER_OBJECT } from "./types";
+import { LOGIN_SUCESS, USER_OBJECT, IS_ADMIN_USER} from "./types";
 
 export const saveLoginSuccess = (result) => ({
     type: LOGIN_SUCESS,
@@ -7,5 +7,10 @@ export const saveLoginSuccess = (result) => ({
 
 export const setUserObject = (result) => ({
     type: USER_OBJECT,
+    payload: result
+});
+
+export const setAdminUser = (result) => ({
+    type: IS_ADMIN_USER,
     payload: result
 });
