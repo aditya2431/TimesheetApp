@@ -66,7 +66,7 @@ const Register = () => {
             password: hashedPassword
         };
 
-        // axios.post('http://10.81.1.250:8080/abhi_timesheet/api/timesheet', request, { credentials: 'include' })
+        // axios.post('http://10.81.1.250:8080/abhi_timesheet/api/register', request, { credentials: 'include' })
         axios.post('http://localhost:8090/api/register', request, { credentials: 'include' })
             .then((response) => {
                 if (response.status === 200) {

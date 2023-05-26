@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Footer, Navbar } from "../components";
 import { useSelector } from 'react-redux';
+import * as FileSaver from "file-saver";
+import * as XLSX from "xlsx";
 
 const ViewDetails = () => {
 
@@ -18,6 +20,7 @@ const ViewDetails = () => {
         let apiEndPoint = '';
         if (userObject) {
             apiEndPoint = 'http://localhost:8090/api/timesheetByUserName/' + userObject.userName;
+            // apiEndPoint = 'http://10.81.1.250:8080/abhi_timesheet/api/timesheetByUserName/' + userObject.userName;
         }
         fetch(apiEndPoint)
             .then(response => {
@@ -28,12 +31,27 @@ const ViewDetails = () => {
             })
     };
 
+    const fileType =
+        "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8";
+    const fileExtension = ".xlsx";
+
+    const exportToCSV = (fileName) => {
+        const ws = XLSX.utils.json_to_sheet(apiResponse);
+        const wb = { Sheets: { data: ws }, SheetNames: ["data"] };
+        const excelBuffer = XLSX.write(wb, { bookType: "xlsx", type: "array" });
+        const data = new Blob([excelBuffer], { type: fileType });
+        FileSaver.saveAs(data, fileName + fileExtension);
+    };
+
     if (reducerData) {
         return (
             <>
                 <Navbar />
                 <div className="container my-3 py-3">
                     <h2 className="text-center">Timesheet Records</h2>
+                    <div class="text-center">
+                        <button className="btn btn-secondary" type="submit" onClick={(e) => exportToCSV("Timesheet_Details")}>Export to excel</button>
+                    </div>
                     <hr />
                     <div className="text-center py-4">
                         {apiResponse.length > 0 && (
