@@ -45,6 +45,7 @@ const Register = () => {
         if (!userAlreadyExist) {
             registerUser();
         }
+        event.preventDefault();
     };
 
     const fetchData = () => {

@@ -8,6 +8,7 @@ const ViewDetails = () => {
 
     const [apiResponse, setApiResponse] = useState([]);
     const [userId, setUserId] = useState('');
+    const [date, setDate] = useState('');
     const isAdmin = useSelector((state) => state?.isAdminUser);
     const userObject = useSelector((state) => state?.userObject);
     const reducerData = useSelector((state) => state?.isLoginSuccess);
@@ -31,6 +32,19 @@ const ViewDetails = () => {
             })
     };
 
+    const handleSubmitButtonClick = () => {
+        debugger;
+        if (date) {
+            debugger;
+            console.log(date);
+            console.log(apiResponse);
+            var newArray = apiResponse.filter(obj => obj.createdAt === date);
+            console.log(newArray);
+            setApiResponse(newArray);
+            setDate('');
+        }
+    };
+
     const fileType =
         "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8";
     const fileExtension = ".xlsx";
@@ -50,7 +64,20 @@ const ViewDetails = () => {
                 <div className="container my-3 py-3">
                     <h2 className="text-center">Timesheet Records</h2>
                     <div class="text-center">
-                        <button className="btn btn-secondary" type="submit" onClick={(e) => exportToCSV("Timesheet_Details")}>Export to excel</button>
+                        {apiResponse.length > 0 &&
+                            <div>
+                                <button className="btn btn-secondary" type="submit" onClick={(e) => exportToCSV("Timesheet_Details")}>Export to excel</button>
+                                <br />
+                                <div className="p-3">
+                                    <input
+                                        type="date"
+                                        value={date}
+                                        onChange={(e) => setDate(e.target.value)}
+                                    /> {'  '}
+                                    <button className="btn btn-secondary" type='submit' onClick={handleSubmitButtonClick} >Filter by date</button>
+                                </div>
+                            </div>
+                        }
                     </div>
                     <hr />
                     <div className="text-center py-4">
@@ -73,13 +100,16 @@ const ViewDetails = () => {
                                         <td>{user.emailId}</td>
                                         <td>{user.category}</td>
                                         <td>{user.wbsCode}</td>
-                                        <td>{user.createdAt.substring(0, 19)}</td>
+                                        <td>{user.createdAt}</td>
                                         <td>{user.bookedEfforts}</td>
                                         <td>{user.comments}</td>
                                     </tr>
                                 ))}
                             </table>
                         )}
+                        {apiResponse.length < 1 &&
+                            <div><b>No data found</b></div>
+                        }
                     </div>
                 </div>
                 <Footer />
