@@ -19,7 +19,7 @@ const AddRecord = () => {
   const userObject = useSelector((state) => state?.userObject);
 
   useEffect(() => {
-    if (userObject && userObject !== null) {
+    if(userObject && userObject !== null){
       setEmail(userObject.emailId);
       setUserName(userObject.userName);
     }
@@ -81,83 +81,89 @@ const AddRecord = () => {
     setComments('');
   }
 
-  if (reducerData) {
-    return (
-      <>
-        <div className="container my-3 py-3">
-          <div className="col-12">
-            <h3 className="display-7 text-center">Add New Record</h3>
-            <hr />
-            <form onSubmit={handleFormSubmit}>
-              <div className='col-md-2 col-xs-2 mx-auto' >
-                <b>User Name: </b><input className="form my-3"
-                  type="text"
-                  required
-                  placeholder="Enter your user id"
-                  value={userName}
-                  onChange={(e) => setUserName(e.target.value)}
-                /> <br />
-                <b>Email: </b><input className="form my-3"
-                  type="email"
-                  required
-                  value={email}
-                  placeholder="Enter your email id"
-                  onChange={(e) => setEmail(e.target.value)}
-                /> <br />
-                <b>Category: </b>
-                <select value={category} required onChange={(e) => setCategory(e.target.value)}>
-                  <option value=""></option>
-                  <option value="Change Request">Change Request</option>
-                  <option value="Support">Support</option>
-                  <option value="Meeting">Meeting</option>
-                  <option value="Training">Training</option>
-                  <option value="Leave">Leave</option>
-                  <option value="Documentation">Documentation</option>
-                  <option value="Project">Project</option>
-                  <option value="PMO Task">PMO Task</option>
-                  <option value="Others">Others</option>
-                </select>
-                <b>WBS Code: </b><input className="form my-3"
-                  type="text"
-                  required
-                  maxLength={10}
+  if(reducerData){
+  return (
+    <>
+      <div className="container my-3 py-3">
+        <div className="col-12">
+          <h3 className="display-7 text-center">Add New Record</h3>
+          <hr />
+          <form onSubmit={handleFormSubmit}>
+            <div className='col-md-2 col-xs-2 mx-auto' >
+              <b>User Name: </b><input className="form my-3"
+                type="text"
+                required
+                placeholder="Enter your user id"
+                value={userName}
+                onChange={(e) => setUserName(e.target.value)}
+              /> <br />
+              <b>Email: </b><input className="form my-3"
+                type="email"
+                required
+                value={email}
+                placeholder="Enter your email id"
+                onChange={(e) => setEmail(e.target.value)}
+              /> <br />
+              <b>Category: </b>
+              <select value={category} required onChange={(e) => setCategory(e.target.value)}>
+                <option value=""></option>
+                <option value="Change Request">Change Request</option>
+                <option value="Support">Support</option>
+                <option value="Meeting">Meeting</option>
+                <option value="Training">Training</option>
+                <option value="Leave">Leave</option>
+                <option value="Documentation">Documentation</option>
+                <option value="Project">Project</option>
+                <option value="Email">Email</option>
+                <option value="PMO Task">PMO Task</option>
+                <option value="Infra Activity">Infra Activity</option>
+                <option value="Network Issue Troubleshooting">Network Issue Troubleshooting</option>
+                <option value="L1 Support">L1 Support</option>
+                <option value="L2 Support">L2 Support</option>
+                <option value="Arcos Issue Resolution">Arcos Issue Resolution</option>
+                <option value="VPN Issue Resolution">VPN Issue Resolution</option>
+                <option value="Others">Others</option>
+              </select>
+              <b>WBS Code: </b><input className="form my-3"
+                type="text"
+                required
+                maxLength={10}
 
-                  placeholder="Enter Jira ticket no here"
-                  value={wbsCode}
-                  onChange={(e) => setWbsCode(e.target.value)}
-                /> <br />
-                <b>Date: </b><input className="form my-3"
-                  type="date"
-                  required
-                  value={date}
-                  onChange={(e) => setDate(e.target.value)}
-                /> <br />
-                <b>Comments: </b><input className="form my-3"
-                  type="text"
-                  placeholder="Additional comments"
-                  value={comments}
-                  onChange={(e) => setComments(e.target.value)}
-                /> <br />
-                <b>Efforts: </b><input className="form my-3"
-                  type="text"
-                  required
-                  placeholder="Efforts for the ticket"
-                  value={efforts}
-                  onChange={(e) => setEfforts(e.target.value)}
-                /> <br />
-                <div className='form my-3' >
-                  <button disabled={isProcessing} type='submit' onClick={handleSubmitButtonClick} >SUBMIT</button>
-                </div>
+                placeholder="Enter Jira ticket no here"
+                value={wbsCode}
+                onChange={(e) => setWbsCode(e.target.value)}
+              /> <br />
+              <b>Date: </b><input className="form my-3"
+                type="date"
+                required
+                value={date}
+                onChange={(e) => setDate(e.target.value)}
+              /> <br />
+              <b>Comments: </b><input className="form my-3"
+                type="text"
+                placeholder="Additional comments"
+                value={comments}
+                onChange={(e) => setComments(e.target.value)}
+              /> <br />
+              <b>Efforts: </b><input className="form my-3"
+                type="text"
+                required
+                placeholder="Efforts for the ticket"
+                value={efforts}
+                onChange={(e) => setEfforts(e.target.value)}
+              /> <br />
+              <div className='form my-3' >
+                <button disabled={isProcessing} type='submit' onClick={handleSubmitButtonClick} >SUBMIT</button>
               </div>
-            </form>
-          </div>
+            </div>
+          </form>
         </div>
-        <hr />
-        <Toaster />
-      </>
-    )
-  }
-  else {
+      </div>
+      <hr />
+      <Toaster />
+    </>
+  )}
+  else{
     return (
       <>
         <div className="container my-3 py-3">
@@ -169,8 +175,7 @@ const AddRecord = () => {
         <hr />
         <Toaster />
       </>
-    )
-  }
+    )}
 };
 
 export default AddRecord;
