@@ -7,6 +7,7 @@ import { useSelector } from 'react-redux';
 const Navbar = () => {
     const reducerData = useSelector((state) => state?.isLoginSuccess);
     const isAdmin = useSelector((state) => state?.isAdminUser);
+    const adminUser = useSelector((state) => state?.userObject?.admin);
     console.log("is", reducerData);
 
     return (
@@ -34,7 +35,7 @@ const Navbar = () => {
                         {reducerData && <li className="nav-item">
                             <NavLink className="nav-link" to="/viewDetails">View Timesheet</NavLink>
                         </li>}
-                        {reducerData && isAdmin &&
+                        {reducerData && isAdmin || adminUser &&
                             <li className="nav-item">
                                 <NavLink className="nav-link" to="/showDetails">Show Details</NavLink>
                             </li>

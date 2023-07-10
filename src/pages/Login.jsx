@@ -35,11 +35,8 @@ const Login = () => {
       dispatch(setAdminUser(true));
     }
     if (apiResponse) {
-      debugger;
       var newArray = apiResponse.filter(obj => obj.userName === loginId);
       const hashedPassword = bcrypt.hashSync(password, '$2a$10$CwTycUXWue0Thq9StjUM0u');
-      console.log(loginId);
-      console.log(newArray);
       if (newArray && newArray.length === 1) {
         if (newArray[0].userName === loginId && newArray[0].password === hashedPassword) {
           dispatch(saveLoginSuccess(true));
@@ -88,7 +85,7 @@ const Login = () => {
           <div className="col-md-4 col-lg-4 col-sm-8 mx-auto">
             <form onSubmit={handleFormSubmit}>
               <div class="my-3">
-                <label for="display-4">Email address</label>
+                <label for="display-4">User Name</label>
                 <input
                   type="text"
                   class="form-control"

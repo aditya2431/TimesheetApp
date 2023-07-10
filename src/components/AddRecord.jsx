@@ -47,8 +47,8 @@ const AddRecord = () => {
       bookedEfforts: efforts
     };
 
-    // axios.post('http://10.81.1.250:8080/abhi_timesheet/api/timesheet', request, { credentials: 'include' })
-    axios.post('http://localhost:8090/api/timesheet', request, { credentials: 'include' })
+    // axios.post('http://10.81.1.250:8080/abhi_timesheet/api/timesheet', request, {credentials: 'include'})
+    axios.post('http://localhost:8090/api/timesheet', request, {credentials: 'include'})
       .then((response) => {
         if (response.status === 200) {
           setApiResponse(response.data);

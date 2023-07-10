@@ -30,13 +30,13 @@ const Register = () => {
             apiResponse.forEach(element => {
                 console.log(element);
                 if (element.userName === userId) {
-                    event.preventDefault();
                     userAlreadyExist = true;
                     toast.dismiss();
                     toast.error("User already exist");
                     setUserId('');
                     setEmailId('');
                     setPassword('');
+                    event.preventDefault();
                     return;
                 }
             });
@@ -50,6 +50,7 @@ const Register = () => {
 
     const fetchData = () => {
         fetch('http://localhost:8090/api/login')
+        // fetch('http://10.81.1.250:8080/abhi_timesheet/api/login')
             .then(response => {
                 return response.json()
             })
@@ -67,8 +68,8 @@ const Register = () => {
             password: hashedPassword
         };
 
-        // axios.post('http://10.81.1.250:8080/abhi_timesheet/api/register', request, { credentials: 'include' })
-        axios.post('http://localhost:8090/api/register', request, { credentials: 'include' })
+        axios.post('http://10.81.1.250:8080/abhi_timesheet/api/register', request, { credentials: 'include' })
+        // axios.post('http://localhost:8090/api/register', request, { credentials: 'include' })
             .then((response) => {
                 if (response.status === 200) {
                     // alert("success scenario");
