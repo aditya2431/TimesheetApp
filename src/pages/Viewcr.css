@@ -1,0 +1,26 @@
+table{
+  border: 2px solid gray;
+  width: 800px;
+  height: 0px;
+
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.CRrow{
+  border-bottom: 1px solid black;
+  text-align: center;
+}
+.App {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.formCR {
+  display: "block";
+  width: 70;
+  font-size: 20px;
+  padding-left: 500px;
+  padding-right: 500px;
+}

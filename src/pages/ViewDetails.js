@@ -3,15 +3,41 @@ import { Footer, Navbar } from "../components";
 import { useSelector } from 'react-redux';
 import * as FileSaver from "file-saver";
 import * as XLSX from "xlsx";
-
+import Paginate from '../components/Paginate';
 const ViewDetails = () => {
 
+    const [pageNumber, setpageNumber] = useState(0);
     const [apiResponse, setApiResponse] = useState([]);
     const [userId, setUserId] = useState('');
     const [date, setDate] = useState('');
     const isAdmin = useSelector((state) => state?.isAdminUser);
     const userObject = useSelector((state) => state?.userObject);
     const reducerData = useSelector((state) => state?.isLoginSuccess);
+
+    const userPerPage = 2;
+    const pagesVisited = pageNumber * userPerPage;
+    let pageCount = Math.ceil(apiResponse.length/userPerPage);
+    
+    const displayUser = apiResponse.slice(pagesVisited, pagesVisited + userPerPage)
+        .map(user => {
+            return (
+                <tr>
+                    <td>{user.id}</td>
+                    <td>{user.userName}</td>
+                    <td>{user.emailId}</td>
+                    <td>{user.category}</td>
+                    <td>{user.wbsCode}</td>
+                    <td>{user.createdAt}</td>
+                    <td>{user.bookedEfforts}</td>
+                    <td>{user.comments}</td>
+                </tr>
+            )
+        });
+     const changePage = ({selected})=>{
+        return (
+            setpageNumber(selected)
+        )
+     }
 
     useEffect(() => {
         fetchData();
@@ -20,7 +46,7 @@ const ViewDetails = () => {
     const fetchData = () => {
         let apiEndPoint = '';
         if (userObject) {
-            apiEndPoint = 'http://localhost:8090/api/timesheetByUserName/' + userObject.userName;
+            apiEndPoint = 'http://localhost:8181/api/timesheetByUserName/' + userObject.userName;
             // apiEndPoint = 'http://10.81.1.250:8080/abhi_timesheet/api/timesheetByUserName/' + userObject.userName;
         }
         fetch(apiEndPoint)
@@ -31,6 +57,8 @@ const ViewDetails = () => {
                 setApiResponse(data)
             })
     };
+
+
 
     const handleSubmitButtonClick = () => {
         debugger;
@@ -93,20 +121,15 @@ const ViewDetails = () => {
                                     <td><b>Booked Efforts</b></td>
                                     <td><b>Comments</b></td>
                                 </tr>
-                                {apiResponse.map(user => (
-                                    <tr>
-                                        <td>{user.id}</td>
-                                        <td>{user.userName}</td>
-                                        <td>{user.emailId}</td>
-                                        <td>{user.category}</td>
-                                        <td>{user.wbsCode}</td>
-                                        <td>{user.createdAt}</td>
-                                        <td>{user.bookedEfforts}</td>
-                                        <td>{user.comments}</td>
-                                    </tr>
-                                ))}
+                                {displayUser}
+            
+                                
+                               
                             </table>
                         )}
+                        
+                               <Paginate pageCount={pageCount} userPerPage={2} changePage = {changePage}/>
+                             
                         {apiResponse.length < 1 &&
                             <div><b>No data found</b></div>
                         }

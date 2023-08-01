@@ -1,19 +1,23 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Footer, Navbar } from "../components";
-import { saveLoginSuccess, setUserObject, setAdminUser } from '../redux/actions';
+import {
+  saveLoginSuccess,
+  setUserObject,
+  setAdminUser,
+  setAllUserObject,
+} from "../redux/actions";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import bcrypt from 'bcryptjs';
-import toast, { Toaster } from 'react-hot-toast';
+import bcrypt from "bcryptjs";
+import toast, { Toaster } from "react-hot-toast";
 import axios from "axios";
 
 const Login = () => {
-
-  const [loginId, setLoginId] = useState('');
-  const [password, setPassword] = useState('');
+  const [loginId, setLoginId] = useState("");
+  const [password, setPassword] = useState("");
   const [apiResponse, setApiResponse] = useState({});
-
+  
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const salt = bcrypt.genSaltSync(10);
@@ -26,38 +30,46 @@ const Login = () => {
 
   const handleSubmit = () => {
     console.log("validating details");
-  }
+  };
 
   const handleFormSubmit = (event) => {
     console.log("validate login");
     event.preventDefault();
-    if (loginId === 'admin') {
+    if (loginId === "admin") {
       dispatch(setAdminUser(true));
     }
     if (apiResponse) {
-      var newArray = apiResponse.filter(obj => obj.userName === loginId);
-      const hashedPassword = bcrypt.hashSync(password, '$2a$10$CwTycUXWue0Thq9StjUM0u');
+      var newArray = apiResponse.filter((obj) => obj.userName === loginId);
+      const hashedPassword = bcrypt.hashSync(
+        password,
+        "$2a$10$CwTycUXWue0Thq9StjUM0u"
+      );
       if (newArray && newArray.length === 1) {
-        if (newArray[0].userName === loginId && newArray[0].password === hashedPassword) {
+        if (
+          newArray[0].userName === loginId &&
+          newArray[0].password === hashedPassword
+        ) {
           dispatch(saveLoginSuccess(true));
           dispatch(setUserObject(newArray[0]));
+          dispatch(setAllUserObject(apiResponse));
           navigate("/home");
         } else {
           toast.dismiss();
-          toast.error("Login failure")
+          toast.error("Login failure");
           return;
         }
       } else {
         toast.dismiss();
-        toast.error("User doesn't exist")
+        toast.error("User doesn't exist");
         return;
       }
     }
   };
 
   const validateLogin = () => {
-    axios.get('http://localhost:8090/api/login')
-    // axios.get('http://10.81.1.250:8080/abhi_timesheet/api/login')
+    axios
+      .get("http://localhost:8181/api/login")
+      // axios.get('http://10.81.1.250:8080/abhi_timesheet/api/login')
       .then((response) => {
         if (response.status === 200) {
           // alert("success scenario");
@@ -80,6 +92,7 @@ const Login = () => {
       <Navbar />
       <div className="container my-3 py-3">
         <h1 className="text-center">Login</h1>
+
         <hr />
         <div class="row my-4 h-100">
           <div className="col-md-4 col-lg-4 col-sm-8 mx-auto">
@@ -93,7 +106,9 @@ const Login = () => {
                   placeholder="HI12345"
                   required
                   value={loginId}
-                  onChange={(e) => setLoginId(e.target.value.toLocaleUpperCase())}
+                  onChange={(e) =>
+                    setLoginId(e.target.value.toLocaleUpperCase())
+                  }
                 />
               </div>
               <div class="my-3">
@@ -109,10 +124,22 @@ const Login = () => {
                 />
               </div>
               <div className="my-3">
-                <p>New Here? <Link to="/register" className="text-decoration-underline text-info">Register</Link> </p>
+                <p>
+                  New Here?{" "}
+                  <Link
+                    to="/register"
+                    className="text-decoration-underline text-info"
+                  >
+                    Register
+                  </Link>{" "}
+                </p>
               </div>
               <div className="text-center">
-                <button class="my-2 mx-auto btn btn-dark" type="submit" onClick={handleSubmit}>
+                <button
+                  class="my-2 mx-auto btn btn-dark"
+                  type="submit"
+                  onClick={handleSubmit}
+                >
                   Login
                 </button>
               </div>

@@ -1,0 +1,33 @@
+ [
+    {
+      "CRNumber": "IT1234",
+      "Task": "Do the given work",
+      "EstimatedEfforts": 9,
+      "ActualEfforts": 12
+    },
+    {
+        "CRNumber": "IT1234",
+        "Task": "Do the given work",
+        "EstimatedEfforts": 9,
+        "ActualEfforts": 12
+      },
+      {
+        "CRNumber": "IT4321",
+        "Task": "Do the given work",
+        "EstimatedEfforts": 13,
+        "ActualEfforts": 12
+      },
+      {
+        "CRNumber": "IT4321",
+        "Task": "Do the given work",
+        "EstimatedEfforts": 9,
+        "ActualEfforts": 12
+      },
+      {
+        "CRNumber": "IT4321",
+        "Task": "Do the given work",
+        "EstimatedEfforts": 13,
+        "ActualEfforts": 12
+      }
+  ]
+

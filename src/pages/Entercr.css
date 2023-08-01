@@ -1,0 +1,101 @@
+.task{
+    border-radius: 5px;
+    border-color: grey;
+}
+.add{
+    border-radius: 30%;
+    font-size: 9px;
+    color: grey;
+}
+
+.remove{
+    border-radius: 30%;
+    font-size: 9px;
+    color: grey;
+}
+.CR{
+    margin-left: 2.5em;
+    padding: 20px
+}
+.inputCR{
+    margin-left: 40px;
+    width: 150px;
+    padding: 3px;
+}
+
+
+.buttons{
+    border: 2px ;
+    /* text-align: center;   Center Align */
+    
+    margin-left: 0px;
+    border-radius: 5px;
+    border-color: gray;
+    display:grid;
+    grid-gap: 0px;
+    /* padding:10px; */
+    
+}
+.CR{
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+
+.card {
+    box-shadow: 0cqmax;
+    padding-left: 20px;
+    border-radius: 20px;
+    margin-bottom: 20px;
+}
+.button{
+    background-color:white;
+    border-radius: 5px;
+}
+.button:hover{
+    background-color: gray;
+    cursor: pointer;
+}
+.form-group {
+    margin-left: 40px;
+    padding-left: 20px;
+}
+.box {
+    padding: 0 3px 0 3px;
+    margin-left: 20px;
+    font-size: 15px;
+}
+.Entercr{
+    margin-left: 20px;
+    padding-left:50px;
+    
+}
+.submitcr{
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+   
+    border: 3px ;
+}
+.btntask{
+    width: 90px;
+    margin-left: 0px;
+}
+.tasks{
+    margin-left:0px;
+}
+.ml10{
+    width: 100px;
+    margin-left: 7px;
+}
+.ml10_description{
+    width: 180px;
+    margin-left: 0px;
+}
+.IDtask{
+    column-gap: 0px;
+}
+[class*="col-"] {
+    margin-bottom: 10px;
+}

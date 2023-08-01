@@ -5,13 +5,15 @@ import bcrypt from 'bcryptjs';
 import toast, { Toaster } from 'react-hot-toast';
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-
 const Register = () => {
 
     const [userId, setUserId] = useState('');
     const [emailId, setEmailId] = useState('');
     const [password, setPassword] = useState('');
+    const [abhiManager, setAbhiManager] = useState('');
+    const [partnerManager, setPartnerManager] = useState('');
     const [apiResponse, setApiResponse] = useState({});
+
     const navigate = useNavigate();
 
     const salt = bcrypt.genSaltSync(10);
@@ -36,6 +38,8 @@ const Register = () => {
                     setUserId('');
                     setEmailId('');
                     setPassword('');
+                    setAbhiManager('');
+                    setPartnerManager('');
                     event.preventDefault();
                     return;
                 }
@@ -49,7 +53,7 @@ const Register = () => {
     };
 
     const fetchData = () => {
-        fetch('http://localhost:8090/api/login')
+        fetch('http://localhost:8181/api/login')
         // fetch('http://10.81.1.250:8080/abhi_timesheet/api/login')
             .then(response => {
                 return response.json()
@@ -65,11 +69,13 @@ const Register = () => {
         const request = {
             userName: userId,
             emailId: emailId,
-            password: hashedPassword
+            password: hashedPassword,
+            abhiManager: abhiManager,
+            partnerManager:partnerManager
         };
 
-        axios.post('http://10.81.1.250:8080/abhi_timesheet/api/register', request, { credentials: 'include' })
-        // axios.post('http://localhost:8090/api/register', request, { credentials: 'include' })
+        // axios.post('http://10.81.1.250:8080/abhi_timesheet/api/register', request, { credentials: 'include' })
+        axios.post('http://localhost:8181/api/register', request, { credentials: 'include' })
             .then((response) => {
                 if (response.status === 200) {
                     // alert("success scenario");
@@ -94,13 +100,17 @@ const Register = () => {
         setUserId('');
         setEmailId('');
         setPassword('');
+        setAbhiManager('');
+        setPartnerManager('');
     }
 
     return (
         <>
+        
             <Navbar />
             <div className="container my-3 py-3">
                 <h1 className="text-center">Register</h1>
+                
                 <hr />
                 <div class="row my-4 h-100">
                     <div className="col-md-4 col-lg-4 col-sm-8 mx-auto">
@@ -111,7 +121,7 @@ const Register = () => {
                                     type="text"
                                     class="form-control"
                                     id="userId"
-                                    placeholder="Your user id"
+                                    placeholder="HI1234"
                                     required
                                     value={userId}
                                     onChange={(e) => setUserId(e.target.value.toUpperCase())}
@@ -139,6 +149,30 @@ const Register = () => {
                                     required
                                     value={password}
                                     onChange={(e) => setPassword(e.target.value)}
+                                />
+                            </div>
+                            <div class="form  my-3">
+                                <label for="AbhiManager">Abhi Manager</label>
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    id="AbhiManager"
+                                    placeholder="HI1234"
+                                    required
+                                    value={abhiManager}
+                                    onChange={(e) => setAbhiManager(e.target.value)}
+                                />
+                            </div>
+                            <div class="form  my-3">
+                                <label for="PartnerManager">Partner Manager</label>
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    id="PartnerManager"
+                                    placeholder="HI1234"
+                                    required
+                                    value={partnerManager}
+                                    onChange={(e) => setPartnerManager(e.target.value)}
                                 />
                             </div>
                             <div className="my-3">

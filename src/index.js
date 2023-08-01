@@ -6,8 +6,11 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Provider } from 'react-redux';
 
 import reduxStore from "./redux/store"
-import { Home, AddNewRecord, ShowDetails, ContactPage, Login, Register, PageNotFound, ViewDetails } from "./pages"
+import { Home, AddNewRecord, ShowDetails, ContactPage, Login, Register, PageNotFound, ViewDetails,} from "./pages"
 import Logout from './pages/Logout';
+import Entercr from './pages/Entercr';
+import Viewcr from './pages/Viewcr';
+
 
 const store=reduxStore();
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -23,6 +26,8 @@ root.render(
         <Route path="/home" element={<Home />} />
         <Route path="/register" element={<Register />} />
         <Route path="/logout" element={<Logout />} />
+        <Route path="/enterCR" element={<Entercr/>} />
+        <Route path="/viewCR" element = {<Viewcr/>}/>
         <Route path="*" element={<PageNotFound />} />
       </Routes>
     </Provider>
