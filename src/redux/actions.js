@@ -3,6 +3,7 @@ import {
   USER_OBJECT,
   IS_ADMIN_USER,
   ALL_USERS_OBJECT,
+  ALL_CR_OBJECT
 } from "./types";
 
 export const saveLoginSuccess = (result) => ({
@@ -22,5 +23,10 @@ export const setAdminUser = (result) => ({
 
 export const setAllUserObject = (result) => ({
   type: ALL_USERS_OBJECT,
+  payload: result,
+});
+
+export const setAllCRObject = (result) => ({
+  type: ALL_CR_OBJECT,
   payload: result,
 });

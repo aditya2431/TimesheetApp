@@ -99,3 +99,8 @@
 [class*="col-"] {
     margin-bottom: 10px;
 }
+
+.ml10_assignedTo{
+    width: 100px;
+    height: 28px;
+}

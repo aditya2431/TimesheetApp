@@ -47,7 +47,7 @@ const Navbar = () => {
                   Add Record
                 </NavLink>
               </li>
-            )}
+            )} 
             {reducerData && (
               <li className="nav-item">
                 <NavLink className="nav-link" to="/viewDetails">

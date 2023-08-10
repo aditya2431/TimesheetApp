@@ -10,6 +10,9 @@ import { Home, AddNewRecord, ShowDetails, ContactPage, Login, Register, PageNotF
 import Logout from './pages/Logout';
 import Entercr from './pages/Entercr';
 import Viewcr from './pages/Viewcr';
+import UpdateDetails from './pages/UpdateDetails';
+import UpdatePassword from './pages/UpdatePassword';
+
 
 
 const store=reduxStore();
@@ -28,6 +31,8 @@ root.render(
         <Route path="/logout" element={<Logout />} />
         <Route path="/enterCR" element={<Entercr/>} />
         <Route path="/viewCR" element = {<Viewcr/>}/>
+        <Route path="/update/:id" element = {<UpdateDetails/>}/>
+        <Route path="/updatePassword" element = {<UpdatePassword/>}/>
         <Route path="*" element={<PageNotFound />} />
       </Routes>
     </Provider>

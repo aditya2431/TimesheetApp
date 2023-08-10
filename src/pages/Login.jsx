@@ -6,6 +6,7 @@ import {
   setUserObject,
   setAdminUser,
   setAllUserObject,
+  setAllCRObject
 } from "../redux/actions";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -131,6 +132,13 @@ const Login = () => {
                     className="text-decoration-underline text-info"
                   >
                     Register
+                  </Link>{" "}
+                  <hr></hr>
+                  <Link
+                    to="/updatePassword"
+                    className="text-decoration-underline text-info"
+                  >
+                    Forgot Password?
                   </Link>{" "}
                 </p>
               </div>

@@ -3,6 +3,7 @@ import {
   USER_OBJECT,
   IS_ADMIN_USER,
   ALL_USERS_OBJECT,
+  ALL_CR_OBJECT
 } from "../types";
 
 export const INITIAL_STATE = {
@@ -10,6 +11,7 @@ export const INITIAL_STATE = {
   userObject: {},
   isAdminUser: false,
   allUsersObject: {},
+  allCRObject:{}
 };
 
 const LoginReducer = (state = INITIAL_STATE, action) => {
@@ -34,6 +36,12 @@ const LoginReducer = (state = INITIAL_STATE, action) => {
         ...state,
         allUsersObject: action.payload,
       };
+
+      case ALL_CR_OBJECT:
+        return {
+          ...state,
+          allCRObject: action.payload,
+        };
     default:
       return state;
   }

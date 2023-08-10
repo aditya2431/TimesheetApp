@@ -15,18 +15,42 @@ const AddRecord = () => {
   const [comments, setComments] = useState('');
   const [isProcessing, setIsProcessing] = useState(false);
   const [apiResponse, setApiResponse] = useState({});
+  // const [assignedto, setAssignedTo] = useState([]);
   const reducerData = useSelector((state) => state?.isLoginSuccess);
-  debugger;
+  // debugger;
+  let optionTemplate = [];
   const userObject = useSelector((state) => state?.userObject);
   console.log(userObject);
 
+  const allCRDetails = useSelector((state) => state?.allCRObject);
+  console.log(allCRDetails);
   useEffect(() => {
     if(userObject && userObject !== null){
       setEmail(userObject.emailId);
       setUserName(userObject.userName);
     }
   }, []);
+  var allwbsCode = [];
+  if(allCRDetails && allCRDetails.length>0){
+  allCRDetails.map(x=>{
+    if(x.assignedTo===userObject.userName){
+       allwbsCode.push(x.wbsCode);
+    }
+  }
 
+  )
+}
+
+
+
+//   })
+// console.log(allwbsCode);
+
+  if (allwbsCode&& allwbsCode.length > 0) {
+    optionTemplate = allwbsCode.map((x) => (
+      <option value={x}>{x}</option>
+    ));
+  }
   const handleSubmitButtonClick = () => {
     console.log("validating details");
   }
@@ -126,7 +150,25 @@ const AddRecord = () => {
                 <option value="VPN Issue Resolution">VPN Issue Resolution</option>
                 <option value="Others">Others</option>
               </select>
-              <b>WBS Code: </b><input className="form my-3"
+              <b>WBS Code: </b>
+              
+{allwbsCode&& allwbsCode.length>0 &&
+<label>
+                              <select
+                               className="form my-3"
+                                value={wbsCode}
+                                onChange={(e) => setWbsCode(e.target.value)}
+                              >
+                                 <option value="" disabled selected>
+                      Wbs Code
+                    </option>
+                                {optionTemplate}
+                              </select>
+                            </label>
+              }
+              {allwbsCode.length<=0 &&
+              
+<input className="form my-3"
                 type="text"
                 required
                 maxLength={10}
@@ -134,7 +176,10 @@ const AddRecord = () => {
                 placeholder="Enter Jira ticket no here"
                 value={wbsCode}
                 onChange={(e) => setWbsCode(e.target.value)}
-              /> <br />
+              /> 
+              }
+            
+              <br />
               <b>Date: </b><input className="form my-3"
                 type="date"
                 required
