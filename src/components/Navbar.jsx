@@ -70,22 +70,23 @@ const Navbar = () => {
                 </NavLink>
               </li>
             )}
-            {reducerData && (
+            {(reducerData && isAdmin) ||
+              (adminUser && (
               <li className="nav-item">
                 <NavLink className="nav-link" to="/enterCR">
                   Add CR Estimation
                 </NavLink>
               </li>
-            )}
-            {reducerData && (
+            ))}
+            {(reducerData && isAdmin) ||
+              (adminUser && (
               <li className="nav-item">
                 <NavLink className="nav-link" to="/viewCR">
                   View CR Estimation
                 </NavLink>
               </li>
-            )}
+            ))}
           </ul>
-          <div className="buttons text-center">
             {!reducerData && (
               <NavLink
                 to="/ABHI_Timesheet"
@@ -106,7 +107,6 @@ const Navbar = () => {
             )}
           </div>
         </div>
-      </div>
     </nav>
   );
 };

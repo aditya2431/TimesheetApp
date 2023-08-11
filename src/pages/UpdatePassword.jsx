@@ -22,11 +22,11 @@ const UpdatePassword = () => {
     fetchData();
   }, []);
 
-  const handleSubmit = () => {
+  const handleFormSubmit = () => {
     console.log("validating details");
   };
 
-  const handleFormSubmit = (event) => {
+  const handleSubmit = (event) => {
     let userAlreadyExist = false;
     if (password === confirmPassword) {
       console.log(apiResponse);
@@ -57,8 +57,8 @@ const UpdatePassword = () => {
     setPasswordType("password");
   };
   const fetchData = () => {
-    fetch("http://localhost:8181/api/login")
-      // fetch('http://10.81.1.250:8080/abhi_timesheet/api/login')
+    // fetch("http://localhost:8181/api/login")
+    fetch('http://10.81.1.250:8080/abhi_timesheet/api/login')
       .then((response) => {
         return response.json();
       })
@@ -81,7 +81,8 @@ const UpdatePassword = () => {
     console.log(isValidUser);
 
     axios
-      .put("http://localhost:8181/api/passwordUpdate", request, {
+      // .put("http://localhost:8181/api/passwordUpdate", request, {
+      .put("http://10.81.1.250:8080/abhi_timesheet/api/passwordUpdate", request, {
         credentials: "include",
       })
       .then((res) => {

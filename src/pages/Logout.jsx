@@ -2,7 +2,7 @@ import React from 'react'
 import { Footer, Navbar } from "../components";
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from "react-redux";
-import { saveLoginSuccess } from '../redux/actions';
+import { saveLoginSuccess , setUserObject, setAllUserObject} from '../redux/actions';
 
 const Logout = () => {
     
@@ -10,6 +10,8 @@ const Logout = () => {
     const dispatch = useDispatch();
     if(reducerData){
         dispatch(saveLoginSuccess(false));
+        dispatch(setUserObject({}));
+        dispatch(setAllUserObject([{}]));
     }
 
     return (

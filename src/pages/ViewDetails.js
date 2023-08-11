@@ -22,14 +22,14 @@ const ViewDetails = () => {
   console.log(userObject);
   const reducerData = useSelector((state) => state?.isLoginSuccess);
   const navigate = useNavigate();
-  const userPerPage = 2;
+  const userPerPage = 50;
   const pagesVisited = pageNumber * userPerPage;
   let pageCount = Math.ceil(apiResponse.length / userPerPage);
- 
+
   const displayUser = apiResponse
     .slice(pagesVisited, pagesVisited + userPerPage)
     .map((user) => {
-      
+
       return (
         <tr>
           <td>{user.id}</td>
@@ -41,13 +41,13 @@ const ViewDetails = () => {
           <td>{user.bookedEfforts}</td>
           <td>{user.comments}</td>
           <td><Link name="edit"
-    to={`/update/${user.id}`}><i class="fas fa-pen"></i></Link></td>
-          <td><Button onClick={e=>handleDelete(user.id)} ><i class="fa-solid fa-trash"></i></Button></td>
+            to={`/update/${user.id}`}><i class="fas fa-pen"></i></Link></td>
+          <td><Button onClick={e => handleDelete(user.id)} ><i class="fa-solid fa-trash"></i></Button></td>
 
         </tr>
       );
     });
-    console.log(displayUser);
+  console.log(displayUser);
   const changePage = ({ selected }) => {
     return setpageNumber(selected);
   };
@@ -59,9 +59,8 @@ const ViewDetails = () => {
   const fetchData = () => {
     let apiEndPoint = "";
     if (userObject) {
-      apiEndPoint =
-        "http://localhost:8181/api/timesheetByUserName/" + userObject.userName;
-      // apiEndPoint = 'http://10.81.1.250:8080/abhi_timesheet/api/timesheetByUserName/' + userObject.userName;
+      // apiEndPoint = "http://localhost:8181/api/timesheetByUserName/" + userObject.userName;
+      apiEndPoint = 'http://10.81.1.250:8080/abhi_timesheet/api/timesheetByUserName/' + userObject.userName;
     }
     fetch(apiEndPoint)
       .then((response) => {
@@ -72,14 +71,15 @@ const ViewDetails = () => {
       });
   };
 
-  const handleDelete= async(id)=>{
-    axios.delete("http://localhost:8181/api/timesheetDelete/" +id ).then(res=>{
+  const handleDelete = async (id) => {
+    // axios.delete("http://localhost:8181/api/timesheetDelete/" + id).then(res => {
+    axios.delete("http://10.81.1.250:8080/abhi_timesheet/api/timesheetDelete/" + id).then(res => {
       alert("Items deleted successfully");
       navigate('/home')
     })
-    .catch(err=>{
-      console.log(err);
-    })
+      .catch(err => {
+        console.log(err);
+      })
   }
 
   console.log(apiResponse);
@@ -147,9 +147,9 @@ const ViewDetails = () => {
           <hr />
           <div className="text-center py-4">
             {apiResponse.length > 0 &&
-                
-            
-                
+
+
+
               <table className="table table-bordered">
                 <tr>
                   <td>
@@ -184,15 +184,15 @@ const ViewDetails = () => {
                   </td>
                 </tr>
                 {displayUser}
-                
+
                 <tr>
-                {/* to={`/update/${editID}`} */}
-                  
+                  {/* to={`/update/${editID}`} */}
+
                 </tr>
               </table>
 
             }
-            
+
 
             <Paginate
               pageCount={pageCount}
